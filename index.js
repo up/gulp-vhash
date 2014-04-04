@@ -14,7 +14,7 @@ var data = {};
 
 function log(msg){
   if(debug) {
-    gutil.log('>> ' + msg);
+    gutil.log('[DEBUG] >> ' + msg);
   }
 }
 
@@ -27,9 +27,10 @@ function writeFile(file, content, callback) {
     if (err) {
       throw err;
     } else {
-      //log(content);
-      log("The file '" + file + "' was saved!");
-      if (callback) {
+			
+      log("'" + file + "' was saved ..");
+      
+			if (callback) {
         callback();
       }
     }
@@ -87,11 +88,14 @@ function generateResults(options){
   return readFile(options.json, function(json) {
     var obj, content;
     json = options.cleanup ? "{}" : json;
-    obj = mergeObjectsRecursive(JSON.parse(json), data);
+    obj = mergeObjectsRecursive(JSON.parse(json), data),
+		json_string = JSON.stringify(obj, null, "   ");
     
+		log('JSON file content: ' + json_string);
+		
     writeFile(
       options.json,
-      JSON.stringify(obj, null, "   "), 
+      json_string, 
       function() {
         var htmlfiles = options.html || [];
     
@@ -125,14 +129,14 @@ function vhash(options) {
   
   options = options || {};
   
-  var type = options.type || [];
+  var type = options.type || ['css'];
   if(typeof options.type === 'string') {
     type = [options.type];
   }
   
   options = {
     type : type,
-    exclude : options.exclude || [],
+    exclude : options.exclude || ['/xyz012321zyx'],
     path : options.path || false,
     cleanup : options.cleanup || false,
     html: options.html || [],
