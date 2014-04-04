@@ -1,17 +1,22 @@
 # gulp-vhash [![Build Status](https://travis-ci.org/up/gulp-vhash.svg?branch=master)](https://travis-ci.org/up/gulp-vhash)
 
-### Asset versioning for browser caching optimization
+> ### Asset versioning for browser caching optimization
 
 **Static HTML or Template Files Replacer/Updater**        
-> Appending content hash as parameter to file names in HTML or template files.
->     
-`common.css` => `common.css?v=185d182710c120e9051d20fa386a4212`
+Appending content hash value as parameter to src/href attributes in HTML or template files.
 
-**JSON Hash File Generator** 
+`<link rel="stylesheet" href="assets/stylesheets/common.css"/>` 
+=> 
+`<link rel="stylesheet" href="assets/stylesheets/common.css?v=185d182710c120e9051d20fa386a4212/>`
 
-> Generate a json file with matched file names (as identifiers) and their md5 hash values. 
->        
-`{"common.css": "185d182710c120e9051d20fa386a42}`
+**JSON Hash File Generator**         
+Saves a json file named '**vhash.json**' in root directory with matched file names (as identifiers) and their md5 hash values. 
+
+    {
+      "common.css": "185d182710c120e9051d20fa386a42",
+      "all.min.js": "e86bfc2fd4d6c2f86825791492d88283"
+    }
+
 
 **Note**        
 > Please read '[Add an Expires or a Cache-Control Header](http://developer.yahoo.com/performance/rules.html#expires)!'
