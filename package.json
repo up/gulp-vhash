@@ -1,7 +1,7 @@
 {
   "name": "gulp-vhash",
-  "version": "0.2.1",
-  "description": "Asset revisioning by appending content hash as parameter to filenames",
+  "version": "0.2.5",
+  "description": "Asset versioning for browser caching optimization",
   "main": "index.js",
   "scripts": {
     "test": "mocha test"
