@@ -1,7 +1,6 @@
 # [gulp](https://github.com/wearefractal/gulp)-vhash
 
-![Build Status](https://travis-ci.org/up/gulp-vhash.svg?branch=master)
-
+<img src="https://travis-ci.org/up/gulp-vhash.svg?branch=master" alt="alt text" title="Title" />
 > Asset revisioning by appending content hash as parameter to filenames 
 
     `common.css` => `common.css?v=185d182710c120e9051d20fa386a4212`
