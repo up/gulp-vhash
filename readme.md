@@ -1,8 +1,6 @@
-# [gulp](https://github.com/wearefractal/gulp)-vhash
+# gulp-vhash [![Build Status](https://travis-ci.org/up/gulp-vhash.svg?branch=master)](https://travis-ci.org/up/gulp-vhash)
 
-<img src="https://travis-ci.org/up/gulp-vhash.svg?branch=master" alt="alt text" title="Title" />
 > Asset revisioning by appending content hash as parameter to filenames 
-
     `common.css` => `common.css?v=185d182710c120e9051d20fa386a4212`
 
 Make sure to set the files to [never expire](http://developer.yahoo.com/performance/rules.html#expires) for this to have an effect.
