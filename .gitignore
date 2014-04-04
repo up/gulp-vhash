@@ -1,0 +1,12 @@
+# OS Generated Files
+.DS_Store
+
+# Local Development (Files and Folders)
+# starting with an unterscore
+\_*
+
+# Server addons
+.htaccess
+
+# NodeJS
+node_modules
