@@ -10,3 +10,6 @@
 
 # NodeJS
 node_modules
+
+# Gulp
+gulpfile.js
