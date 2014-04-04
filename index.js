@@ -27,10 +27,10 @@ function writeFile(file, content, callback) {
     if (err) {
       throw err;
     } else {
-			
+      
       log("'" + file + "' was saved ..");
       
-			if (callback) {
+      if (callback) {
         callback();
       }
     }
@@ -89,10 +89,10 @@ function generateResults(options){
     var obj, content;
     json = options.cleanup ? "{}" : json;
     obj = mergeObjectsRecursive(JSON.parse(json), data),
-		json_string = JSON.stringify(obj, null, "   ");
+    json_string = JSON.stringify(obj, null, "   ");
     
-		log('JSON file content: ' + json_string);
-		
+    log('JSON file content: ' + json_string);
+    
     writeFile(
       options.json,
       json_string, 
