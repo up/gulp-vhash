@@ -1,0 +1,29 @@
+{
+  "name": "gulp-vhash",
+  "version": "0.2.1",
+  "description": "Asset revisioning by appending content hash as parameter to filenames",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Uli Preuss",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp-util": "~2.2.14",
+    "through2": "~0.4.1"
+  },
+	"repository": {
+    "type": "git",
+    "url": "git://github.com/up/gulp-vhash.git"
+  },
+  "keywords": [
+    "gulpplugin",
+    "js",
+    "javascript",
+    "css",
+    "asset",
+    "caching",
+    "md5",
+    "hash"
+  ]
+}
