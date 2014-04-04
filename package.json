@@ -10,9 +10,10 @@
   "license": "MIT",
   "devDependencies": {
     "gulp-util": "~2.2.14",
-    "through2": "~0.4.1"
+    "through2": "~0.4.1",
+    "mocha": "~1.18.2"
   },
-	"repository": {
+  "repository": {
     "type": "git",
     "url": "git://github.com/up/gulp-vhash.git"
   },
