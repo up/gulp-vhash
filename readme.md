@@ -1,4 +1,4 @@
-# [gulp](https://github.com/wearefractal/gulp)-vhash [![Build Status](https://travis-ci.org/up/gulp-vhash.svg?branch=master)](https://travis-ci.org/up/gulp-vhash?branch=master)
+# [gulp](https://github.com/wearefractal/gulp)-vhash [![Build Status](https://travis-ci.org/up/gulp-vhash.svg?branch=master)](https://travis-ci.org/up/gulp-vhash)
 
 > Asset revisioning by appending content hash as parameter to filenames 
 
