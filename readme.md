@@ -39,6 +39,39 @@ gulp.task('default', function() {
 });
 ```
 
+## options
+
+### html
+
+      html: [
+        'index.htm', 
+        'test.htm'
+      ]
+
+### type
+      type: ['js', 'css']
+
+### exclude
+
+      exclude: ['/libs']
+			
+### path
+
+      path: false
+			
+### cleanup
+
+      cleanup: true
+
+### json
+
+      json: 'filehashes.json'
+
+### debug
+
+      debug: true
+
+
 An json file with file names and their md5 hash value, will be written to `options.json` (Default `vhash.json` in root directory):
 
 ```
