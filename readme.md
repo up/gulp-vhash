@@ -2,14 +2,14 @@
 
 > ### Asset versioning for browser caching optimization
 
-**Static HTML or Template Files Replacer/Updater**        
-Appending content hash value as parameter to src/href attributes in HTML or template files.
+**Static HTML File(s)**        
+Appending or updating content hash value as parameter to src/href attributes in HTML or template files.
 
 `<link rel="stylesheet" href="assets/stylesheets/common.css"/>` 
 => 
 `<link rel="stylesheet" href="assets/stylesheets/common.css?v=185d182710c120e9051d20fa386a4212/>`
 
-**JSON Hash File Generator**         
+**JSON Hash File**         
 Saves a json file named '**vhash.json**' in root directory with matched file names (as identifiers) and their md5 hash values. 
 
     {
