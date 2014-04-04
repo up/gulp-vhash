@@ -63,7 +63,7 @@ function mergeObjectsRecursive(obj1, obj2) {
 }
 
 function addFileData(src, options) {
-		
+    
   options.type.forEach(function(type) {
     var workingDir = path.dirname(fs.realpathSync(__filename)).split('/').pop();
     var identifier = src.split(workingDir)[1];
@@ -105,7 +105,7 @@ function generateResults(options){
             readFile(htmlfile, function(markup) {
               var file, hash;
               for (file in obj) {
-							  hash = obj[file];
+                hash = obj[file];
                 markup = replaceHash(markup, hash, file);
               }
               writeFile(htmlfile, markup);
@@ -116,20 +116,20 @@ function generateResults(options){
       
       }
     );
-		return json;
+    return json;
   });
   
 }
 
 function vhash(options) {
-	
-	options = options || {};
-	
-	var type = options.type || [];
-	if(typeof options.type === 'string') {
-		type = [options.type];
-	}
-	
+  
+  options = options || {};
+  
+  var type = options.type || [];
+  if(typeof options.type === 'string') {
+    type = [options.type];
+  }
+  
   options = {
     type : type,
     exclude : options.exclude || [],
@@ -155,16 +155,16 @@ function vhash(options) {
 
     // Process source files (js, css)
     if (file.isBuffer()) {
-			
-			// save the old path for tests
-		  file.orig = {
-				path: file.path,
-				base: file.base
-		  }
-			file.hash = createHashString(file.path);
+      
+      // save the old path for tests
+      file.orig = {
+        path: file.path,
+        base: file.base
+      }
+      file.hash = createHashString(file.path);
 
       addFileData(file.path, options);
-			
+      
       this.push(file);
       return callback();
     }
