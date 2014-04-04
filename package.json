@@ -1,6 +1,6 @@
 {
   "name": "gulp-vhash",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "description": "Asset versioning for browser caching optimization",
   "main": "index.js",
   "scripts": {

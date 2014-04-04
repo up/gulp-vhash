@@ -1,13 +1,24 @@
 # gulp-vhash [![Build Status](https://travis-ci.org/up/gulp-vhash.svg?branch=master)](https://travis-ci.org/up/gulp-vhash)
 
-> ### Asset versioning for browser caching optimization
-
+### Asset versioning (for browser caching optimization)
 **Static HTML File(s)**        
-Appending or updating content hash value as parameter to src/href attributes in HTML or template files.
+Appending or updating content **hash value as parameter** to src/href attributes in HTML or template files.
 
-`<link rel="stylesheet" href="assets/stylesheets/common.css"/>` 
-=> 
-`<link rel="stylesheet" href="assets/stylesheets/common.css?v=185d182710c120e9051d20fa386a4212/>`
+
+    <!-- before -->
+    <link rel="stylesheet" href="common.css"/>    
+     
+    <!-- after -->
+    <link rel="stylesheet" 
+      href="common.css?v=185d182710c120e9051d20fa386a4212/>
+
+JavaScript:
+   
+    <!-- before -->
+    <script src="all.min.js"></script>
+    
+    <!-- after -->
+    <script src="all.min.js?v=e86bfc2fd4d6c2f86825791492d88283"></script>
 
 **JSON Hash File**         
 Saves a json file named '**vhash.json**' in root directory with matched file names (as identifiers) and their md5 hash values. 
