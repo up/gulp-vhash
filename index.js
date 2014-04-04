@@ -68,8 +68,8 @@ function mergeObjectsRecursive(obj1, obj2) {
 }
 
 function addFileData(src) {
-    var identifier = path.basename(src);
-    data[identifier] = createHashString(src);
+  var identifier = path.basename(src);
+  data[identifier] = createHashString(src);
 }
 
 function replaceHash(markup, hash, file) {
@@ -121,7 +121,7 @@ function vhash(htmlfiles) {
   
   htmlfiles = htmlfiles || [];
   
-  /* Creating a stream through which each file will pass ******************************/
+  /* Creating a stream through which each file will pass */
   var stream = through.obj(function(file, enc, callback) {
     
     // Do nothing if no contents
@@ -153,7 +153,7 @@ function vhash(htmlfiles) {
     }
   })
   
-  /* Callback *************************************************************************/
+  /* Callback */
   .on('end', function () {
     
     fs.exists(jsonFile, function(exists) {
@@ -171,6 +171,8 @@ function vhash(htmlfiles) {
   return stream; 
   
 }
+
+// for mocha tests
 vhash.replaceHash = replaceHash;
 vhash.addFileData = addFileData;
 vhash.data = data;
