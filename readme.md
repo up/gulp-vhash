@@ -36,7 +36,7 @@ Saves a json file named '**vhash.json**' in root directory with matched file nam
 ## Install
 
 ```
-$ npm install --save-dev gulp-vhash
+$ npm install gulp-vhash
 ```
 
 
