@@ -4,7 +4,7 @@
   "description": "Asset revisioning by appending content hash as parameter to filenames",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha:test"
   },
   "author": "Uli Preuss",
   "license": "MIT",
