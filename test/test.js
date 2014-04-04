@@ -38,7 +38,7 @@ describe('gulp-vhash tests', function(){
       }));
     
       stream.end(function () {
-        vhash.addFileData(testfile, { type : ['css'], path : false}), 
+        vhash.addFileData(testfile), 
         assert.equal(
           vhash.data['test.css'],
           testhash

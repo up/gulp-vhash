@@ -31,79 +31,16 @@ var gulp = require('gulp');
 var vhash = require('gulp-vhash');
 
 gulp.task('default', function() {
-  return gulp.src('src/**/*.*')
-  .pipe(
-    vhash({ 
-    html: [
-      'index.htm', 
-      'test.htm'
-    ],
-    type: ['js', 'css'],
-    exclude: ['/libs'],
-    path: false,
-    cleanup: true,
-    json: 'filehashes.json',
-    debug: true
-    })
+  
+  return gulp.src(
+    'src/**/*.{js,css}'
   )
+  .pipe(vhash(
+    'html/**/*.htm'
+   ));
   
 });
 ```
-
-## Options
-
-### type
-Creating hashes for special file types
-    
-    // Value: String or Array
-    // Default: 'css'
-    type: ['js', 'css']
-
-### exclude
-Exclude folders in 'src' files
-
-    // Value: String or Array
-    // Default: ''
-    exclude: ['/libs']
-    
-### html
-Define static HTML or template file(s)
-
-    // Value: String or Array
-    // Default: ''
-    html: [
-      'index.htm', 
-      'test.htm'
-    ]
-
-### json
-Define path/name of json file
-
-    // Value: String
-    // Default: 'vhash.json'
-    json: 'build/filehashes.json'
-
-### path
-Define relative path matching
-
-    // Value: Boolean
-    // Default: false
-    path: true
-    
-### cleanup
-Remove existing json file items
-
-    // Value: Boolean
-    // Default: false
-    cleanup: true
-
-### debug
-Enable some debugging messages
-
-    // Value: Boolean
-    // Default: 'vhash.json'
-    debug: true
-
 
 ## License
 

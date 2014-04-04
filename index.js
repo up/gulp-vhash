@@ -2,6 +2,7 @@
 
 var fs = require('fs');
 var path = require('path');
+var glob = require('glob');
 var hash = require('crypto');
 var through = require('through2');
 var gutil = require('gulp-util');
@@ -10,6 +11,7 @@ var PluginError = gutil.PluginError;
 const PLUGIN_NAME = 'gulp-vhash';
 
 var debug = false;
+var jsonFile = 'vhash.json';
 var data = {};
 
 function log(msg){
@@ -25,11 +27,11 @@ function createHashString(file) {
 function writeFile(file, content, callback) {
   fs.writeFile(file, content, function(err) {
     if (err) {
-      throw err;
+      throw new PluginError(PLUGIN_NAME, err);
     } else {
       
       log("'" + file + "' was saved ..");
-			
+      
       if (callback) {
         callback();
       }
@@ -40,7 +42,7 @@ function writeFile(file, content, callback) {
 function readFile(file, callback) {
   fs.readFile(file, 'utf8', function(err, data) {
     if (err) {
-      throw err;
+      throw new PluginError(PLUGIN_NAME, err);
     }
     if (callback) {
       callback(data);
@@ -50,33 +52,24 @@ function readFile(file, callback) {
 
 function mergeObjectsRecursive(obj1, obj2) {
   for (var p in obj2) {
-    try {
-      if (obj2[p].constructor == Object) {
-        obj1[p] = mergeObjectsRecursive(obj1[p], obj2[p]);
-      } else {
+    if(obj2.hasOwnProperty(p)) {
+      try {
+        if (obj2[p].constructor == Object) {
+          obj1[p] = mergeObjectsRecursive(obj1[p], obj2[p]);
+        } else {
+          obj1[p] = obj2[p];
+        }
+      } catch (e) {
         obj1[p] = obj2[p];
       }
-    } catch (e) {
-      obj1[p] = obj2[p];
     }
   }
   return obj1;
 }
 
-function addFileData(src, options) {
-    
-  options.type.forEach(function(type) {
-    var workingDir = path.dirname(fs.realpathSync(__filename)).split('/').pop();
-    var identifier = src.split(workingDir)[1];
-    var isType = path.extname(src) === '.' + type;
-    var isExcude = !! ~src.indexOf(options.exclude);
-    if (isType && !isExcude) {
-      if(!options.path) {
-        identifier = path.basename(src);
-      }
-      data[identifier] = createHashString(src);
-    }
-  });
+function addFileData(src) {
+    var identifier = path.basename(src);
+    data[identifier] = createHashString(src);
 }
 
 function replaceHash(markup, hash, file) {
@@ -84,40 +77,39 @@ function replaceHash(markup, hash, file) {
   return markup.replace(re, file + '?v=' + hash);
 }
 
-function generateResults(options){
-  return readFile(options.json, function(json) {
-    var obj, content;
-    json = options.cleanup ? "{}" : json;
-    obj = mergeObjectsRecursive(JSON.parse(json), data),
+function generateResults(htmlfiles){
+  return readFile(jsonFile, function(json) {
+    var json_string, obj;
+    obj = mergeObjectsRecursive(JSON.parse(json), data);
     json_string = JSON.stringify(obj, null, "   ");
     
     log('JSON file content: ' + json_string);
     
-    writeFile(
-      options.json,
-      json_string, 
-      function() {
-        var htmlfiles = options.html || [];
-    
-        if(typeof htmlfiles === 'string') {
-          htmlfiles = [htmlfiles];
-        }
+    writeFile(jsonFile, json_string, function() {
+          
+        glob(htmlfiles, function (err, files) {
+          
+          if(err) {
+            throw new PluginError(PLUGIN_NAME, err);
+          }
+
+          files.forEach(function(htmlfile){
       
-        htmlfiles.forEach(function(htmlfile){
-      
-          if(htmlfile !== '') {
             readFile(htmlfile, function(markup) {
               var file, hash;
               for (file in obj) {
-                hash = obj[file];
-                markup = replaceHash(markup, hash, file);
+                if(obj.hasOwnProperty(file)) {
+                  hash = obj[file];
+                  markup = replaceHash(markup, hash, file);
+                }
               }
               writeFile(htmlfile, markup);
             });
-          }
           
+          });
+
         });
-      
+            
       }
     );
     return json;
@@ -125,29 +117,10 @@ function generateResults(options){
   
 }
 
-function vhash(options) {
+function vhash(htmlfiles) {
   
-  options = options || {};
+  htmlfiles = htmlfiles || [];
   
-  var type = options.type || ['css'];
-  if(typeof options.type === 'string') {
-    type = [options.type];
-  }
-  
-  options = {
-    type : type,
-    exclude : options.exclude || ['/xyz012321zyx'],
-    path : options.path || false,
-    cleanup : options.cleanup || false,
-    html: options.html || [],
-    json: options.json || 'vhash.json',
-    debug : options.debug || false
-  };  
-  
-  if(options.debug) {
-    debug = true;
-  }
-      
   /* Creating a stream through which each file will pass ******************************/
   var stream = through.obj(function(file, enc, callback) {
     
@@ -164,10 +137,11 @@ function vhash(options) {
       file.orig = {
         path: file.path,
         base: file.base
-      }
+      };
+      
       file.hash = createHashString(file.path);
 
-      addFileData(file.path, options);
+      addFileData(file.path, htmlfiles);
       
       this.push(file);
       return callback();
@@ -182,13 +156,13 @@ function vhash(options) {
   /* Callback *************************************************************************/
   .on('end', function () {
     
-    fs.exists(options.json, function(exists) {
+    fs.exists(jsonFile, function(exists) {
       if (!exists) {
-        writeFile(options.json, '{}', function(){
-          generateResults(options);
+        writeFile(jsonFile, '{}', function(){
+          generateResults(htmlfiles);
         });
       } else {
-        generateResults(options);
+        generateResults(htmlfiles);
       }
     });
        
