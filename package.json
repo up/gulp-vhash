@@ -1,6 +1,6 @@
 {
   "name": "gulp-vhash",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "Asset versioning (for caching optimization)",
   "main": "index.js",
   "scripts": {
@@ -8,12 +8,6 @@
   },
   "author": "Uli Preuss",
   "license": "MIT",
-  "dependencies": {
-    "gulp-util": "~2.2.14",
-    "through2": "~0.4.1",
-    "mocha": "~1.18.2",
-    "glob": "~3.2.9"
-  },
   "dependencies": {
     "gulp-util": "~2.2.14",
     "through2": "~0.4.1",

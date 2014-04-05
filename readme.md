@@ -22,7 +22,7 @@ _Result_:
     <script src="all.min.js?v=e86bfc2fd4d6c2f86825791492d88283"></script>
 
 #### 2. JSON Hash File        
-Saves a file named '**vhash.json**' in root directory with matched file names (as identifiers) and their md5 hash values. 
+Saves a file named '**vhash.json**' in root directory with matched file names (as identifiers) and the md5 hash values. 
 
     {
       "common.css": "185d182710c120e9051d20fa386a42",
