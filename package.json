@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "mocha": "*"
-  }
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/up/gulp-vhash.git"
