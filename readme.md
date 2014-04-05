@@ -1,27 +1,28 @@
 # gulp-vhash [![Build Status](https://travis-ci.org/up/gulp-vhash.svg?branch=master)](https://travis-ci.org/up/gulp-vhash)
 
 ### Asset versioning (for browser caching optimization)
-**Static HTML File(s)**        
-Appending or updating content **hash value as parameter** to src/href attributes in HTML or template files.
 
+#### 1. Static HTML File(s)       
+Creating or updating content hash value **as parameter** to src/href attributes in HTML or template files without manual preparations (like html comments).
 
-    <!-- before -->
-    <link rel="stylesheet" href="common.css"/>    
-     
-    <!-- after -->
-    <link rel="stylesheet" 
-      href="common.css?v=185d182710c120e9051d20fa386a4212/>
+**Stylesheet**
 
-JavaScript:
+    <link rel="stylesheet" href="common.css"/>
+
+_Result_:
+
+    <link rel="stylesheet" href="common.css?v=185d182710c120e9051d20fa386a4212/>
+
+**JavaScript**
    
-    <!-- before -->
     <script src="all.min.js"></script>
-    
-    <!-- after -->
+
+_Result_:
+
     <script src="all.min.js?v=e86bfc2fd4d6c2f86825791492d88283"></script>
 
-**JSON Hash File**         
-Saves a json file named '**vhash.json**' in root directory with matched file names (as identifiers) and their md5 hash values. 
+#### 2. JSON Hash File        
+Saves a file named '**vhash.json**' in root directory with matched file names (as identifiers) and their md5 hash values. 
 
     {
       "common.css": "185d182710c120e9051d20fa386a42",
@@ -52,7 +53,7 @@ gulp.task('default', function() {
     'src/**/*.{js,css}'
   )
   .pipe(vhash(
-    'html/**/*.htm'
+    'html/**/*.{htm*,tmpl}'
    ));
   
 });

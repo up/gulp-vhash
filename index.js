@@ -10,13 +10,13 @@ var PluginError = gutil.PluginError;
 
 const PLUGIN_NAME = 'gulp-vhash';
 
-var debug = false;
+var logging = false;
 var jsonFile = 'vhash.json';
 var data = {};
 
 function log(msg){
-  if(debug) {
-    gutil.log('[DEBUG] >> ' + msg);
+  if(logging) {
+    gutil.log('[VHASH LOG] >> ' + msg);
   }
 }
 
@@ -67,7 +67,7 @@ function mergeObjectsRecursive(obj1, obj2) {
   return obj1;
 }
 
-function addFileData(src) {
+function addFileHash(src) {
   var identifier = path.basename(src);
   data[identifier] = createHashString(src);
 }
@@ -77,7 +77,7 @@ function replaceHash(markup, hash, file) {
   return markup.replace(re, file + '?v=' + hash);
 }
 
-function generateResults(htmlfiles){
+function generateResults(htmlFiles){
   return readFile(jsonFile, function(json) {
     var json_string, obj;
     obj = mergeObjectsRecursive(JSON.parse(json), data);
@@ -87,7 +87,7 @@ function generateResults(htmlfiles){
     
     writeFile(jsonFile, json_string, function() {
           
-        glob(htmlfiles, function (err, files) {
+        glob(htmlFiles, function (err, files) {
           
           if(err) {
             throw new PluginError(PLUGIN_NAME, err);
@@ -117,14 +117,15 @@ function generateResults(htmlfiles){
   
 }
 
-function vhash(htmlfiles) {
+function vhash(htmlFiles, enableLogging) {
   
-  htmlfiles = htmlfiles || [];
+  htmlFiles = htmlFiles || [];
+  logging = enableLogging || logging;
   
-  /* Creating a stream through which each file will pass */
+  // Create file stream
   var stream = through.obj(function(file, enc, callback) {
     
-    // Do nothing if no contents
+    // Do nothing if no content
     if (file.isNull()) {
       this.push(file); 
       return callback();
@@ -133,15 +134,9 @@ function vhash(htmlfiles) {
     // Process source files (js, css)
     if (file.isBuffer()) {
       
-      // save the old path for tests
-      file.orig = {
-        path: file.path,
-        base: file.base
-      };
-      
       file.hash = createHashString(file.path);
 
-      addFileData(file.path, htmlfiles);
+      addFileHash(file.path, htmlFiles);
       
       this.push(file);
       return callback();
@@ -159,10 +154,10 @@ function vhash(htmlfiles) {
     fs.exists(jsonFile, function(exists) {
       if (!exists) {
         writeFile(jsonFile, '{}', function(){
-          generateResults(htmlfiles);
+          generateResults(htmlFiles);
         });
       } else {
-        generateResults(htmlfiles);
+        generateResults(htmlFiles);
       }
     });
        
@@ -174,7 +169,7 @@ function vhash(htmlfiles) {
 
 // for mocha tests
 vhash.replaceHash = replaceHash;
-vhash.addFileData = addFileData;
+vhash.addFileHash = addFileHash;
 vhash.data = data;
 
 module.exports = vhash;
