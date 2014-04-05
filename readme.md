@@ -7,23 +7,24 @@ Creating or updating content hash value **as parameter** to src/href attributes 
 
 **Stylesheet**
 
-```
+```html
 <link rel="stylesheet" href="common.css"/>
 ```
 _Result_:
 
-```
+```html
 <link rel="stylesheet" href="common.css?v=185d182710c120e9051d20fa386a4212/>
 ```
 
 **JavaScript**
-```
+
+```html
 <script src="all.min.js"></script>
 ```
 
 _Result_:
 
-```
+```html
 <script src="all.min.js?v=e86bfc2fd4d6c2f86825791492d88283"></script>
 ```
 
@@ -43,7 +44,7 @@ Please read '[Add an Expires or a Cache-Control Header](http://developer.yahoo.c
 
 ## Install
 
-```
+```bash
 $ npm install gulp-vhash
 ```
 
