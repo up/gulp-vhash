@@ -1,4 +1,4 @@
-# gulp-vhash [![Build Status](https://travis-ci.org/up/gulp-vhash.svg?branch=master)](https://travis-ci.org/up/gulp-vhash) [![GitHub version](https://badge.fury.io/gh/up%2Fgulp-vhash.svg)](http://badge.fury.io/gh/up%2Fgulp-vhash)
+# gulp-vhash [![Build Status](https://travis-ci.org/up/gulp-vhash.svg?branch=master)](https://travis-ci.org/up/gulp-vhash) [![NPM version](https://badge.fury.io/js/gulp-vhash.svg)](http://badge.fury.io/js/gulp-vhash) [![GitHub version](https://badge.fury.io/gh/up%2Fgulp-vhash.svg)](http://badge.fury.io/gh/up%2Fgulp-vhash)
 
 ### Asset versioning (for browser caching optimization)
 
